@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "index.css",
+	"sources": [
+		"../sass/index.sass"
+	],
+	"sourcesContent": [
+		".game-section {}\n\n"
+	],
+	"names": [],
+	"mappings": ""
+}
