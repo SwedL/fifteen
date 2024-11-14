@@ -1,3 +1,10 @@
+const coordsVictory = [
+    ['25', '25'], ['125', '25'], ['225', '25'], ['325', '25'],
+    ['25', '125'],['125', '125'], ['225', '125'], ['325', '125'],
+    ['25', '225'], ['125', '225'], ['225', '225'], ['325', '225'],
+    ['25', '325'], ['125', '325'], ['225', '325']
+]
+
 const tags = document.querySelectorAll('.tag');
 tags.forEach(t => t.addEventListener('click', handleMove));
 
@@ -10,10 +17,13 @@ function getCoordTags(array) {
     return output;
 }
 
-/**
- * Функция получает эемент - костяшку для передвижения,
- * меняет её позицию и анимированно передвигает её по полю
- * */
+/* Функция сравнивает текущие координаты костяшек с выигрышной комбинацией и возвращает true/false */
+function checkVictory() {
+    const allCoordsTags = getCoordTags(document.querySelectorAll('.tag'));
+    return JSON.stringify(allCoordsTags) == JSON.stringify(coordsVictory);
+}
+
+/* Функция получает элемент - костяшку для передвижения, анимированно передвигая, меняет её позицию */
 function doMove(movedTag, deltaX, deltaY) {
     let [value, currentX, currentY] = Object.values(movedTag.dataset);
     const newX = Number(currentX) + deltaX;
@@ -27,6 +37,7 @@ function doMove(movedTag, deltaX, deltaY) {
         top: `${newY}px`,
         easing: 'linear',
     });
+    setTimeout(() => console.log(checkVictory()), 300);
 }
 
 /**
@@ -85,13 +96,13 @@ function stepLeft(tagsCoords, clickTag, clickTagX, clickTagY) {
 /* Функция отрабатывает при нажатии на костяшку и пытается сделать ход выбранной костяшки в свободный слот */
 function handleMove(event) {
     const tags = document.querySelectorAll('.tag');  // получаем элементы всех костяшек document
-    const allTagsCoords = getCoordTags(tags);        // получаем координаты всех костяшек
+    const allCoordsTags = getCoordTags(tags);        // получаем координаты всех костяшек
     const clickTag = event.srcElement                // получаем элемент нажатой костяшки
     let [_, currentTagX, currentTagY] = Object.values(clickTag.dataset);
 
     // пытаемся у выбранной костяшки сделать ходы на 4 стороны
     for (step of [stepTop, stepRight, stepBottom, stepLeft]) {
-        const flag = step(allTagsCoords, clickTag, currentTagX, currentTagY);
+        const flag = step(allCoordsTags, clickTag, currentTagX, currentTagY);
         if (flag) {
             break;
         }
