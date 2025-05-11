@@ -11,7 +11,34 @@ body {
 .game-title {
   font-size: 80px;
   text-align: center;
-  padding-bottom: 200px;
+  padding-bottom: 50px;
+}
+
+.button {
+  width: 150px;
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #ca5b5b;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: #e76666;
+}
+
+.button:active {
+  background-color: #e76666;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .game-field {

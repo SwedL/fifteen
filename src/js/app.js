@@ -1,12 +1,14 @@
 const coordsVictory = [
     ['25', '25'], ['125', '25'], ['225', '25'], ['325', '25'],
-    ['25', '125'],['125', '125'], ['225', '125'], ['325', '125'],
+    ['25', '125'], ['125', '125'], ['225', '125'], ['325', '125'],
     ['25', '225'], ['125', '225'], ['225', '225'], ['325', '225'],
     ['25', '325'], ['125', '325'], ['225', '325']
 ]
 
+const button = document.querySelector('.button');
 const tags = document.querySelectorAll('.tag');
 tags.forEach(t => t.addEventListener('click', handleMove));
+button.addEventListener('click', handleButton);
 
 /** Функция получает массив элементов костяшек и возвращает список координат костяшек */
 function getCoordTags(array) {
@@ -107,4 +109,8 @@ function handleMove(event) {
             break;
         }
     }
+}
+
+function handleButton(event) {
+    console.log('start game');
 }
