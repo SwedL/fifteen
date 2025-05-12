@@ -13,7 +13,7 @@ button.addEventListener('click', handleButton);
 /** Функция получает массив элементов костяшек и возвращает список координат костяшек */
 function getCoordTags(array) {
     const output = [];
-    for (i of array) {
+    for (let i of array) {
         output.push([i.dataset.x, i.dataset.y]);
     }
     return output;
@@ -48,48 +48,44 @@ function doMove(movedTag, deltaX, deltaY) {
 * и помешают её ходу вверх.
 * Если список мешающихся костяшек пуст, то выполняет функцию перемещения.
 */
-function stepTop(tagsCoords, clickTag, clickTagX, clickTagY) {
+function stepTop(tagsCoords, clickTagX, clickTagY) {
     if (clickTagY > 25) {
         const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) && c[1] == Number(clickTagY) - 100)});
         if (!findTag.length) {
-            doMove(clickTag, deltaX=0, deltaY=-100);
-            return true;
+            return [0, -100];
         }
     }
     return false;
 }
 
 /** Функция выполняет все процедуры как и у функции stepTop но при ходе вправо */
-function stepRight(tagsCoords, clickTag, clickTagX, clickTagY) {
+function stepRight(tagsCoords, clickTagX, clickTagY) {
     if (clickTagX < 325) {
         const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) + 100 && c[1] == Number(clickTagY))});
         if (!findTag.length) {
-            doMove(clickTag, deltaX=100, deltaY=0);
-            return true;
+            return [100, 0];
         }
     }
     return false;
 }
 
 /** Функция выполняет все процедуры как и у функции stepTop но при ходе вниз */
-function stepBottom(tagsCoords, clickTag, clickTagX, clickTagY) {
+function stepBottom(tagsCoords, clickTagX, clickTagY) {
     if (clickTagY < 325) {
         const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) && c[1] == Number(clickTagY) + 100)});
         if (!findTag.length) {
-            doMove(clickTag, deltaX=0, deltaY=100);
-            return true;
+            return [0, 100];
         }
     }
     return false
 }
 
 /** Функция выполняет все процедуры как и у функции stepTop но при ходе влево */
-function stepLeft(tagsCoords, clickTag, clickTagX, clickTagY) {
+function stepLeft(tagsCoords, clickTagX, clickTagY) {
     if (clickTagX > 25) {
         const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) - 100 && c[1] == Number(clickTagY))});
         if (!findTag.length) {
-            doMove(clickTag, deltaX=-100, deltaY=0);
-            return true;
+            return [-100, 0];
         }
     }
     return false;
@@ -98,14 +94,15 @@ function stepLeft(tagsCoords, clickTag, clickTagX, clickTagY) {
 /* Функция отрабатывает при нажатии на костяшку и пытается сделать ход выбранной костяшки в свободный слот */
 function handleMove(event) {
     const tags = document.querySelectorAll('.tag');  // получаем элементы всех костяшек document
-    const allCoordsTags = getCoordTags(tags);        // получаем координаты всех костяшек
+    const tagsCoords = getCoordTags(tags);        // получаем координаты всех костяшек
     const clickTag = event.srcElement                // получаем элемент нажатой костяшки
-    let [_, currentTagX, currentTagY] = Object.values(clickTag.dataset);
+    let [_, clickTagX, clickTagY] = Object.values(clickTag.dataset);
 
     // пытаемся у выбранной костяшки сделать ходы на 4 стороны
-    for (step of [stepTop, stepRight, stepBottom, stepLeft]) {
-        const flag = step(allCoordsTags, clickTag, currentTagX, currentTagY);
-        if (flag) {
+    for (let step of [stepTop, stepRight, stepBottom, stepLeft]) {
+        const availableCoordsDelts = step(tagsCoords, clickTagX, clickTagY);
+        if (availableCoordsDelts) {
+            doMove(clickTag, ...availableCoordsDelts);
             break;
         }
     }
