@@ -1,6 +1,8 @@
 .idea/
 .parcel-cache/
+.vscode/
 dist/
 node_modules/
+tag-puzzle.ru
 package.json
 package-lock.json

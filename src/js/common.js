@@ -131,12 +131,12 @@ class Congratulations {
         delay: anime.stagger(100, {start: 0}), 
         translateX: [-2300, 0]
         });
-        setTimeout(() => this.secondHappy(), 6000);
+        setTimeout(() => this.secondHappy(), 5000);
     }
 
 
     static secondHappy() {
-        anime.timeline({
+        let animation = anime.timeline({
         duration: 3000,
         easing: 'easeInOutSine',
         loop: true
