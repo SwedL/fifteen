@@ -1,8 +1,10 @@
-import { MoveChecker, TagsMixer, doMove, victoryCoords } from "./common.js";
+import { MoveChecker, TagsMixer, Congratulations, doMove, victoryCoords } from "./common.js";
 
 
 const button = document.querySelector('.button');
 const tags = document.querySelectorAll('.tag');
+const gameTitle = document.querySelector('.game-title');
+const congratulations = document.querySelector('.congratulations');
 
 button.addEventListener('click', handleButton);
 
@@ -35,7 +37,10 @@ function handleMove(event) {
             doMove(clickTag, ...availableCoordsDelts);
             if (checkVictory()) {
                 tags.forEach(t => t.removeEventListener('click', handleMove));
-                console.log(checkVictory());
+                gameTitle.classList.add('hide');
+                congratulations.classList.remove('hide');
+                button.innerText = 'Старт игры';
+                Congratulations.firstHappy();
             }
             break;
         }
@@ -45,5 +50,12 @@ function handleMove(event) {
 /* Функция отрабатывает при нажатии на кнопку <<Старт игры>> и перемешивает костяшки */
 function handleButton(event) {
     tags.forEach(t => t.addEventListener('click', handleMove));
+    button.innerText = 'Перемешать';
+    if (!congratulations.classList.contains('hide')) {
+        congratulations.classList.add('hide');
+    }
+    if (gameTitle.classList.contains('hide')) {
+        gameTitle.classList.remove('hide');
+    }
     TagsMixer.doMix();
 }

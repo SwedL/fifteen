@@ -77,7 +77,6 @@ class MoveChecker {
     }
 }
 
-
 class TagsMixer {
     /** Функция правильно перемешивает костяшки */
     static shuffleArray() {
@@ -119,10 +118,55 @@ class TagsMixer {
     }
 }
 
+class Congratulations {
+    static firstHappy() {
+        anime({
+        targets: '.letter',
+        opacity: 1,
+        rotate: {
+            value: 360,
+            duration: 2000,
+            easing: 'easeInExpo'
+        }, 
+        delay: anime.stagger(100, {start: 0}), 
+        translateX: [-2300, 0]
+        });
+        setTimeout(() => this.secondHappy(), 6000);
+    }
+
+
+    static secondHappy() {
+        anime.timeline({
+        duration: 3000,
+        easing: 'easeInOutSine',
+        loop: true
+        });
+        animation.add({
+        targets: '.one',
+        keyframes: [
+            {translateY: -20},
+            {translateY: 0}
+        ]
+        }).add({
+        targets: '.two',
+        keyframes: [
+            {translateY: -20},
+            {translateY: 0},
+        ]
+        }, '-=2500').add({
+        targets: '.three',
+        keyframes: [
+            {translateY: -20},
+            {translateY: 0},
+        ]
+        }, '-=2500');
+    }
+}
 
 export {
     MoveChecker,
     TagsMixer,
+    Congratulations,
     doMove,
-    victoryCoords
+    victoryCoords,
 }

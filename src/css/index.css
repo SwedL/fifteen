@@ -3,15 +3,67 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: "MManrope";
+  src: url("../fonts/Manrope-Regular.ttf");
+  font-weight: regular;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MManrope";
+  src: url("../fonts/Manrope-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+html {
+  font-family: "MManrope";
+  /* font-weight: regular; */
+  font-weight: bold;
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #fffca1;
   padding-top: 30px;
 }
 
 .game-title {
-  font-size: 70px;
+  background: url(../img/title2.png) no-repeat center;
+  padding-top: 50px;
+  height: 220px;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  margin-top: 20px;
+  margin-left: 5px;
+  border-radius: 30%;
   text-align: center;
-  padding-bottom: 50px;
+  display: inline-block;
+  font-size: 40px;
+  color: #06639c;
+}
+
+.hide {
+  display: none;
+}
+
+.congratulations {
+  text-align: center;
+  height: 270px;
+}
+
+.one {
+    background-color: rgba(255, 60, 0, 0.58);
+}
+.two {
+    background-color: rgba(0, 255, 0, 0.6);
+}
+.three {
+    background-color: rgba(0, 255, 162, 0.48);
 }
 
 .button {
@@ -23,7 +75,8 @@ body {
   text-align: center;
   cursor: pointer;
   outline: none;
-  color: #fff;
+  /* color: #fff; */
+  color: #82FF7C;
   background-color: #ca5b5b;
   border: none;
   border-radius: 15px;
