@@ -134,7 +134,6 @@ class Congratulations {
         setTimeout(() => this.secondHappy(), 5000);
     }
 
-
     static secondHappy() {
         let animation = anime.timeline({
         duration: 3000,
