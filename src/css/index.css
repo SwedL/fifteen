@@ -5,33 +5,23 @@
 
 @font-face {
   font-family: "MManrope";
-  src: url("../fonts/Manrope-Regular.ttf");
-  font-weight: regular;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "MManrope";
   src: url("../fonts/Manrope-Bold.ttf");
   font-weight: bold;
   font-style: normal;
 }
-
 html {
   font-family: "MManrope";
-  /* font-weight: regular; */
   font-weight: bold;
   scroll-behavior: smooth;
 }
 
 body {
-  /* background-color: #818181; */
   background: url(../img/main-background-image.jpg) no-repeat center;
   padding-top: 30px;
 }
 
 .game-title {
-  background: url(../img/title2.png) no-repeat center;
+  background: url(../img/main-title.png) no-repeat center;
   padding-top: 50px;
   height: 220px;
 }
@@ -45,7 +35,7 @@ body {
   text-align: center;
   display: inline-block;
   font-size: 40px;
-  color: #06639c;
+  color: #e7e1ca;
 }
 
 .hide {
@@ -58,16 +48,20 @@ body {
 }
 
 .one {
-    background-color: rgba(255, 60, 0, 0.58);
+  background-color: rgba(227, 97, 4, 0.982);
 }
+
 .two {
-    background-color: rgba(0, 255, 0, 0.6);
+  background-color: rgba(5, 172, 5, 0.865);
 }
+
 .three {
-    background-color: rgba(0, 255, 162, 0.48);
+  background-color: rgba(185, 49, 234, 0.934);
 }
 
 .button {
+  background-image: linear-gradient(rgba(244, 66, 54, 0.6), rgb(244, 66, 54), rgba(244, 66, 54, 0.6));
+  border-color: rgb(244, 66, 54);
   width: 150px;
   margin: auto;
   margin-bottom: 30px;
@@ -76,22 +70,23 @@ body {
   text-align: center;
   cursor: pointer;
   outline: none;
-  /* color: #fff; */
   color: #82FF7C;
-  background-color: #ca5b5b;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 9px #999;
-  user-select: none;
+  box-shadow: 0 9px #622626;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .button:hover {
-  background-color: #e76666;
+  background-image: linear-gradient(rgba(244, 66, 54, 0.6), rgb(244, 66, 54), rgba(244, 66, 54, 0.6));
+  color: #82FF7C;
 }
 
 .button:active {
-  background-color: #e76666;
-  box-shadow: 0 5px #666;
+  background-image: linear-gradient(rgba(244, 66, 54, 0.6), rgb(244, 66, 54), rgba(244, 66, 54, 0.6));
+  box-shadow: 0 5px #622626;
   transform: translateY(4px);
 }
 
@@ -111,16 +106,20 @@ body {
   position: relative;
 }
 
-.tag {
+.tag100 {
   width: 100px;
   height: 100px;
   position: absolute;
 }
 
+.tag75 {
+  width: 76px;
+  height: 76px;
+  position: absolute;
+}
+
 .tag1-100 {
   background: url(../img/tags-100/tag1-100.png);
-  width: 100px;
-  height: 100px;
   left: 25px;
   top: 25px;
 }
@@ -211,107 +210,108 @@ body {
 
 .tag1-75 {
   background: url(../img/tags-75/tag1-75.png);
-  width: 100px;
-  height: 100px;
-  left: 25px;
-  top: 25px;
+  left: 20px;
+  top: 20px;
 }
 
 .tag2-75 {
   background: url(../img/tags-75/tag2-75.png);
-  left: 125px;
-  top: 25px;
+  left: 95px;
+  top: 20px;
 }
 
 .tag3-75 {
   background: url(../img/tags-75/tag3-75.png);
-  left: 225px;
-  top: 25px;
+  left: 170px;
+  top: 20px;
 }
 
 .tag4-75 {
   background: url(../img/tags-75/tag4-75.png);
-  left: 325px;
-  top: 25px;
+  left: 245px;
+  top: 20px;
 }
 
 .tag5-75 {
   background: url(../img/tags-75/tag5-75.png);
-  left: 25px;
-  top: 125px;
+  left: 20px;
+  top: 95px;
 }
 
 .tag6-75 {
   background: url(../img/tags-75/tag6-75.png);
-  left: 125px;
-  top: 125px;
+  left: 95px;
+  top: 95px;
 }
 
 .tag7-75 {
   background: url(../img/tags-75/tag7-75.png);
-  left: 225px;
-  top: 125px;
+  left: 170px;
+  top: 95px;
 }
 
 .tag8-75 {
   background: url(../img/tags-75/tag8-75.png);
-  left: 325px;
-  top: 125px;
+  left: 245px;
+  top: 95px;
 }
 
 .tag9-75 {
   background: url(../img/tags-75/tag9-75.png);
-  left: 25px;
-  top: 225px;
+  left: 20px;
+  top: 170px;
 }
 
 .tag10-75 {
   background: url(../img/tags-75/tag10-75.png);
-  left: 125px;
-  top: 225px;
+  left: 95px;
+  top: 170px;
 }
 
 .tag11-75 {
   background: url(../img/tags-75/tag11-75.png);
-  left: 225px;
-  top: 225px;
+  left: 170px;
+  top: 170px;
 }
 
 .tag12-75 {
   background: url(../img/tags-75/tag12-75.png);
-  left: 325px;
-  top: 225px;
+  left: 245px;
+  top: 170px;
 }
 
 .tag13-75 {
   background: url(../img/tags-75/tag13-75.png);
-  left: 25px;
-  top: 325px;
+  left: 20px;
+  top: 245px;
 }
 
 .tag14-75 {
   background: url(../img/tags-75/tag14-75.png);
-  left: 125px;
-  top: 325px;
+  left: 95px;
+  top: 245px;
 }
 
 .tag15-75 {
   background: url(../img/tags-75/tag15-75.png);
-  left: 225px;
-  top: 325px;
+  left: 170px;
+  top: 245px;
 }
-
 
 @media (max-width: 1199px) {
   .game-title {
-    background: url(../img/title666x82.png) no-repeat center;
+    background: url(../img/small-title.png) no-repeat center;
   }
 }
-
-
 @media (max-width: 767px) {
   .game-title {
-    background: url(../img/titlesquare.png) no-repeat center;
+    padding-top: 10px;
+    background: url(../img/small-square-title.png) no-repeat center;
+  }
+  .congratulations {
+    text-align: center;
+    height: 200px;
+    padding-top: 30px;
   }
   .circle {
     width: 30px;
@@ -320,14 +320,14 @@ body {
     font-size: 25px;
   }
 }
-
 @media (max-width: 575px) {
+  .congratulations {
+    text-align: center;
+  }
   .circle {
     width: 22px;
     height: 25px;
     margin-top: 20px;
     font-size: 18px;
   }
-}
-
-@media (max-width: 460px) {}
+}/*# sourceMappingURL=index.css.map */

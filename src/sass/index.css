@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fffca1;
+  padding-top: 30px;
+}
+
+.game-title {
+  font-size: 70px;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.button {
+  width: 150px;
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #ca5b5b;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.button:hover {
+  background-color: #e76666;
+}
+
+.button:active {
+  background-color: #e76666;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.game-field {
+  background: url(../img/game-field-450.png);
+  margin: auto;
+  width: 450px;
+  height: 450px;
+  position: relative;
+}
+
+.tag {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.tag1 {
+  background: url(../img/tag1.png);
+  left: 25px;
+  top: 25px;
+}
+
+.tag2 {
+  background: url(../img/tag2.png);
+  left: 125px;
+  top: 25px;
+}
+
+.tag3 {
+  background: url(../img/tag3.png);
+  left: 225px;
+  top: 25px;
+}
+
+.tag4 {
+  background: url(../img/tag4.png);
+  left: 325px;
+  top: 25px;
+}
+
+.tag5 {
+  background: url(../img/tag5.png);
+  left: 25px;
+  top: 125px;
+}
+
+.tag6 {
+  background: url(../img/tag6.png);
+  left: 125px;
+  top: 125px;
+}
+
+.tag7 {
+  background: url(../img/tag7.png);
+  left: 225px;
+  top: 125px;
+}
+
+.tag8 {
+  background: url(../img/tag8.png);
+  left: 325px;
+  top: 125px;
+}
+
+.tag9 {
+  background: url(../img/tag9.png);
+  left: 25px;
+  top: 225px;
+}
+
+.tag10 {
+  background: url(../img/tag10.png);
+  left: 125px;
+  top: 225px;
+}
+
+.tag11 {
+  background: url(../img/tag11.png);
+  left: 225px;
+  top: 225px;
+}
+
+.tag12 {
+  background: url(../img/tag12.png);
+  left: 325px;
+  top: 225px;
+}
+
+.tag13 {
+  background: url(../img/tag13.png);
+  left: 25px;
+  top: 325px;
+}
+
+.tag14 {
+  background: url(../img/tag14.png);
+  left: 125px;
+  top: 325px;
+}
+
+.tag15 {
+  background: url(../img/tag15.png);
+  left: 225px;
+  top: 325px;
+}/*# sourceMappingURL=index.css.map */

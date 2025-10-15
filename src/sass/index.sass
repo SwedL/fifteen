@@ -2,16 +2,55 @@
     margin: 0
     padding: 0
 
+@font-face
+    font-family: "MManrope"
+    src: url("../fonts/Manrope-Bold.ttf")
+    font-weight: bold
+    font-style: normal
+
+html
+    font-family: "MManrope"
+    font-weight: bold
+    scroll-behavior: smooth
+
 body
-    background-color: #fffca1
+    background: url(../img/main-background-image.jpg) no-repeat center
     padding-top: 30px
 
 .game-title
-    font-size: 70px
+    background: url(../img/main-title.png) no-repeat center
+    padding-top: 50px
+    height: 220px
+
+.circle
+    width: 60px
+    height: 60px
+    margin-top: 20px
+    margin-left: 5px
+    border-radius: 30%
     text-align: center
-    padding-bottom: 50px
+    display: inline-block
+    font-size: 40px
+    color: #e7e1ca
+
+.hide
+    display: none
+
+
+.congratulations
+    text-align: center
+    height: 270px
+
+.one
+    background-color: rgba(227, 97, 4, 0.982)
+.two
+    background-color: rgba(5, 172, 5, 0.865)
+.three
+    background-color: rgba(185, 49, 234, 0.934)
 
 .button
+    background-image: linear-gradient(rgba(244,66,54,0.6),  rgb(244,66,54),  rgba(244,66,54,0.6))
+    border-color: rgb(244,66,54)
     width: 150px
     margin: auto
     margin-bottom: 30px
@@ -20,91 +59,220 @@ body
     text-align: center
     cursor: pointer
     outline: none
-    color: #fff
-    background-color: #ca5b5b
+    color: #82FF7C
     border: none
     border-radius: 15px
-    box-shadow: 0 9px #999
+    box-shadow: 0 9px #622626
     user-select: none
 
 .button:hover
-    // background-color: #3e8e41
-    background-color: #e76666
+    background-image: linear-gradient(rgba(244,66,54,0.6),  rgb(244,66,54),  rgba(244,66,54,0.6))
+    color: #82FF7C
 
 .button:active
-    // background-color: #3e8e41
-    background-color: #e76666
-    box-shadow: 0 5px #666
+    background-image: linear-gradient(rgba(244,66,54,0.6),  rgb(244,66,54),  rgba(244,66,54,0.6))
+    box-shadow: 0 5px #622626
     transform: translateY(4px)
 
-.game-field
+.large-game-field
     background: url(../img/game-field-450.png)
     margin: auto
     width: 450px
     height: 450px
     position: relative
 
-.tag
+.small-game-field
+    background: url(../img/game-field-340.png)
+    margin: auto
+    width: 340px
+    height: 340px
+    position: relative
+
+.tag100
     width: 100px
     height: 100px
     position: absolute
-.tag1
-    background: url(../img/tag1.png)
+
+.tag75
+    width: 76px
+    height: 76px
+    position: absolute
+
+.tag1-100
+    background: url(../img/tags-100/tag1-100.png)
     left: 25px
     top: 25px
-.tag2
-    background: url(../img/tag2.png)
+
+.tag2-100
+    background: url(../img/tags-100/tag2-100.png)
     left: 125px
     top: 25px
-.tag3
-    background: url(../img/tag3.png)
+
+.tag3-100
+    background: url(../img/tags-100/tag3-100.png)
     left: 225px
     top: 25px
-.tag4
-    background: url(../img/tag4.png)
+
+.tag4-100
+    background: url(../img/tags-100/tag4-100.png)
     left: 325px
     top: 25px
-.tag5
-    background: url(../img/tag5.png)
+
+.tag5-100
+    background: url(../img/tags-100/tag5-100.png)
     left: 25px
     top: 125px
-.tag6
-    background: url(../img/tag6.png)
+
+.tag6-100
+    background: url(../img/tags-100/tag6-100.png)
     left: 125px
     top: 125px
-.tag7
-    background: url(../img/tag7.png)
+
+.tag7-100
+    background: url(../img/tags-100/tag7-100.png)
     left: 225px
     top: 125px
-.tag8
-    background: url(../img/tag8.png)
+
+.tag8-100
+    background: url(../img/tags-100/tag8-100.png)
     left: 325px
     top: 125px
-.tag9
-    background: url(../img/tag9.png)
+
+.tag9-100
+    background: url(../img/tags-100/tag9-100.png)
     left: 25px
     top: 225px
-.tag10
-    background: url(../img/tag10.png)
+
+.tag10-100
+    background: url(../img/tags-100/tag10-100.png)
     left: 125px
     top: 225px
-.tag11
-    background: url(../img/tag11.png)
+
+.tag11-100
+    background: url(../img/tags-100/tag11-100.png)
     left: 225px
     top: 225px
-.tag12
-    background: url(../img/tag12.png)
+
+.tag12-100
+    background: url(../img/tags-100/tag12-100.png)
     left: 325px
     top: 225px
-.tag13
-    background: url(../img/tag13.png)
+
+.tag13-100
+    background: url(../img/tags-100/tag13-100.png)
     left: 25px
     top: 325px
-.tag14
-    background: url(../img/tag14.png)
+
+.tag14-100
+    background: url(../img/tags-100/tag14-100.png)
     left: 125px
     top: 325px
-.tag15
-    background: url(../img/tag15.png)
+
+.tag15-100
+    background: url(../img/tags-100/tag15-100.png)
     left: 225px
     top: 325px
+
+.tag1-75
+    background: url(../img/tags-75/tag1-75.png)
+    left: 20px
+    top: 20px
+
+.tag2-75
+    background: url(../img/tags-75/tag2-75.png)
+    left: 95px
+    top: 20px
+
+.tag3-75
+    background: url(../img/tags-75/tag3-75.png)
+    left: 170px
+    top: 20px
+
+.tag4-75
+    background: url(../img/tags-75/tag4-75.png)
+    left: 245px
+    top: 20px
+
+.tag5-75
+    background: url(../img/tags-75/tag5-75.png)
+    left: 20px
+    top: 95px
+
+.tag6-75
+    background: url(../img/tags-75/tag6-75.png)
+    left: 95px
+    top: 95px
+
+.tag7-75
+    background: url(../img/tags-75/tag7-75.png)
+    left: 170px
+    top: 95px
+
+.tag8-75
+    background: url(../img/tags-75/tag8-75.png)
+    left: 245px
+    top: 95px
+
+.tag9-75
+    background: url(../img/tags-75/tag9-75.png)
+    left: 20px
+    top: 170px
+
+.tag10-75
+    background: url(../img/tags-75/tag10-75.png)
+    left: 95px
+    top: 170px
+
+.tag11-75
+    background: url(../img/tags-75/tag11-75.png)
+    left: 170px
+    top: 170px
+
+.tag12-75
+    background: url(../img/tags-75/tag12-75.png)
+    left: 245px
+    top: 170px
+
+.tag13-75
+    background: url(../img/tags-75/tag13-75.png)
+    left: 20px
+    top: 245px
+
+.tag14-75
+    background: url(../img/tags-75/tag14-75.png)
+    left: 95px
+    top: 245px
+
+.tag15-75
+    background: url(../img/tags-75/tag15-75.png)
+    left: 170px
+    top: 245px
+
+@media (max-width: 1199px)
+    .game-title
+        background: url(../img/small-title.png) no-repeat center
+
+@media (max-width: 767px)
+    .game-title
+        padding-top: 10px
+        background: url(../img/small-square-title.png) no-repeat center
+    .congratulations
+        text-align: center
+        height: 200px
+        padding-top: 30px
+    .circle
+        width: 30px
+        height: 35px
+        margin-top: 20px
+        font-size: 25px
+
+@media (max-width: 575px)
+    .congratulations
+        text-align: center
+    .circle
+        width: 22px
+        height: 25px
+        margin-top: 20px
+        font-size: 18px
+
+@media (max-width: 460px)
