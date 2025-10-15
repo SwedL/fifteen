@@ -2,6 +2,7 @@
 .parcel-cache/
 .vscode/
 dist/
+public/
 node_modules/
 tag-puzzle.ru
 package.json
