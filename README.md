@@ -12,7 +12,7 @@
 Рабочую версию игры вы можете протестировать на [https://tag-puzzle.ru](https://tag-puzzle.ru)
 
 ## Описание работы игры
-<p align="center"><img src="https://i.ibb.co/GvGdDMwS/game.png" alt="2025-05-18-11-41-22" border="0"></p>
+<p align="center"><img src="https://i.ibb.co/GvGdDMwS/game.png" alt="game-image" border="0"></p>
 
 Игра представляет собой классическую головоломку.<br>
 При нажатии на кнопку костяшки перемешиваются.<br>
@@ -28,7 +28,7 @@ https://github.com/SwedL/fifteen.git
  - Откройте проект в программе IDE Visual Studio Code
  - В IDE Visual Studio Code установите расширение Live Server
  - Откройте файл src/index.html
- - Нажмите в нижней части экрана кнопку Go Live <p align="left"><img src="https://i.ibb.co/b5Nz5Vyw/2025-05-18-11-54-00.png" alt="game-image" border="0"></p>
+ - Нажмите в нижней части экрана кнопку Go Live <p align="left"><img src="https://i.ibb.co/b5Nz5Vyw/2025-05-18-11-54-00.png" alt="image" border="0"></p>
 
 
 ## Автор проекта
