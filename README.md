@@ -12,7 +12,7 @@
 Рабочую версию игры вы можете протестировать на [https://tag-puzzle.ru](https://tag-puzzle.ru)
 
 ## Описание работы игры
-<p align="center"><img src="https://i.ibb.co/GQXdpBmS/image-2025-10-16-104257711.png" alt="2025-05-18-11-41-22" border="0"></p>
+<p align="center"><img src="https://i.ibb.co/GvGdDMwS/game.png" alt="2025-05-18-11-41-22" border="0"></p>
 
 Игра представляет собой классическую головоломку.<br>
 При нажатии на кнопку костяшки перемешиваются.<br>
