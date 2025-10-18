@@ -1,4 +1,3 @@
-// <reference types="animejs" />
 declare const anime: any;
 
 const largeVictoryCoords = [
@@ -6,24 +5,22 @@ const largeVictoryCoords = [
   [25, 125], [125, 125], [225, 125], [325, 125],
   [25, 225], [125, 225], [225, 225], [325, 225],
   [25, 325], [125, 325], [225, 325]
-]
+];
 
 const smallVictoryCoords = [
   [20, 20], [95, 20], [170, 20], [245, 20],
   [20, 95], [95, 95], [170, 95], [245, 95],
   [20, 170], [95, 170], [170, 170], [245, 170],
   [20, 245], [95, 245], [170, 245]
-]
+];
 
-const victoryCoords = window.innerWidth >= 900 ? largeVictoryCoords : smallVictoryCoords
-const tagStep = window.innerWidth >= 900 ? 100 : 75
-const upperAndLeftEdge = window.innerWidth >= 900 ? 25 : 20
-const bottomAndRightEdge = window.innerWidth >= 900 ? 325 : 245
+export const victoryCoords = window.innerWidth >= 900 ? largeVictoryCoords : smallVictoryCoords;
+const tagStep = window.innerWidth >= 900 ? 100 : 75;
 
 /* Функция получает элемент - костяшку для передвижения, анимированно передвигая, меняет её позицию */
 function doMove(movedTag: HTMLElement, deltaX: number, deltaY: number): void {
   let [_, currentX, currentY] = Object.values(movedTag.dataset);
-  let newX, newY
+  let newX, newY;
   if (currentX && currentY) {
     newX = Number(currentX) + deltaX;
     newY = Number(currentY) + deltaY;
@@ -39,59 +36,58 @@ function doMove(movedTag: HTMLElement, deltaX: number, deltaY: number): void {
   });
 }
 
-class MoveChecker {
-  /**
-  * Функция получает координаты всех костяшек, нажатую костяшку и её координаты
-  * Проверяет крайняя ли она сверху, если нет - то ищет костяшки которые стоят выше на один шаг в том же столбце
-  * и помешают её ходу вверх.
-  * Если список мешающихся костяшек пуст, то выполняет функцию перемещения.
-  */
-  static moveTop(tagsCoords: number[][], clickTagX: number, clickTagY: number): [number, number] | undefined {
-    if (clickTagY > upperAndLeftEdge) {
-      const findTag = tagsCoords.filter(c => {return (c[0] == clickTagX && c[1] == clickTagY - tagStep)});
-      if (!findTag.length) {
-        return [0, -tagStep];
-      }
-    }
-  }
-
-  /** Функция выполняет все процедуры как и у функции stepTop но при ходе вправо */
-  static moveRight(tagsCoords: number[][], clickTagX: number, clickTagY: number): [number, number] | undefined {
-    if (clickTagX < bottomAndRightEdge) {
-      const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) + tagStep && c[1] == Number(clickTagY))});
-      if (!findTag.length) {
-        return [tagStep, 0];
-      }
-    }
-  }
-
-  /** Функция выполняет все процедуры как и у функции stepTop но при ходе вниз */
-  static moveBottom(tagsCoords: number[][], clickTagX: number, clickTagY: number): [number, number] | undefined {
-    if (clickTagY < bottomAndRightEdge) {
-      const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) && c[1] == Number(clickTagY) + tagStep)});
-      if (!findTag.length) {
-        return [0, tagStep];
-      }
-    }
-  }
-
-  /** Функция выполняет все процедуры как и у функции stepTop но при ходе влево */
-  static moveLeft(tagsCoords: number[][], clickTagX: number, clickTagY: number): [number, number] | undefined {
-    if (clickTagX > upperAndLeftEdge) {
-      const findTag = tagsCoords.filter(c => {return (c[0] == Number(clickTagX) - tagStep && c[1] == Number(clickTagY))});
-      if (!findTag.length) {
-        return [-tagStep, 0];
-      }
-    }
-  }
-
-  /** Функция возвращает список всех функций проверок доступного перемещения выбранной костяшки */
-  static getAllMoveCheckers() {
-    return [this.moveTop, this.moveRight, this.moveBottom, this.moveLeft]
+function getClickedTagData(event: MouseEvent | TouchEvent): getClickedTagDataReturnRecord {
+  const clickTag = event.target as HTMLElement;           // получаем элемент нажатой костяшки
+  let [_, clickTagXCoord, clickTagYCoord] = Object.values(clickTag?.dataset);
+  return {
+    clickTag: clickTag,
+    clickTagXCoord: Number(clickTagXCoord),
+    clickTagYCoord: Number(clickTagYCoord),
   }
 }
 
-class TagsMixer {
+
+export class TagsMover {
+  /* координаты дырки на поле */
+  hole: Record<string, number> = {
+    XCoord: window.innerWidth >= 900 ? 325 : 245,
+    YCoord: window.innerWidth >= 900 ? 325 : 245,
+  }
+
+  tryMoveTagUp(event: MouseEvent | TouchEvent): void {
+    const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
+    if (clickTagXCoord === this.hole.XCoord && clickTagYCoord - tagStep === this.hole.YCoord) {
+      this.hole.YCoord = clickTagYCoord;
+      doMove(clickTag, 0, -tagStep);
+    }
+  }
+
+  tryMoveTagDown(event: MouseEvent | TouchEvent): void {
+    const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
+    if (clickTagXCoord === this.hole.XCoord && clickTagYCoord + tagStep === this.hole.YCoord) {
+      this.hole.YCoord = clickTagYCoord;
+      doMove(clickTag, 0, tagStep);
+    }
+  }
+
+  tryMoveTagLeft(event: MouseEvent | TouchEvent): void {
+    const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
+    if (clickTagXCoord - tagStep === this.hole.XCoord && clickTagYCoord === this.hole.YCoord) {
+      this.hole.XCoord = clickTagXCoord;
+      doMove(clickTag, -tagStep, 0);
+    }
+  }
+
+  tryMoveTagRight(event: MouseEvent | TouchEvent): void {
+    const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
+    if (clickTagXCoord + tagStep === this.hole.XCoord && clickTagYCoord === this.hole.YCoord) {
+      this.hole.XCoord = clickTagXCoord;
+      doMove(clickTag, tagStep, 0);
+    }
+  }
+}
+
+export class TagsMixer {
   /** Функция правильно перемешивает костяшки */
   static shuffleArray(): number[] {
     while (true) {
@@ -101,7 +97,7 @@ class TagsMixer {
       // Перемешивание костяшек
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Обмен значениями
+        [array[i], array[j]] = [array[j], array[i]];
       }
       
       // Проверка перемешивания костяшек на собираемость
@@ -119,13 +115,14 @@ class TagsMixer {
   }
 
   /** Функция выполняет перестроение костяшек на поле */
-  static doMix() {
+  static doMix(): void {
     let mixedTagsList = this.shuffleArray();
 
     for (let tagValue of mixedTagsList) {
       let tag: HTMLElement | null = document.getElementById(String(tagValue));
-      let [newTagCordX, newTagCordY] = victoryCoords[mixedTagsList.indexOf(tagValue)]
-      let deltaX, deltaY
+      let [newTagCordX, newTagCordY] = victoryCoords[mixedTagsList.indexOf(tagValue)];
+      let deltaX, deltaY;
+
       if (tag instanceof HTMLElement) {
         deltaX = Number(newTagCordX) - Number(tag.dataset.x);
         deltaY = Number(newTagCordY) - Number(tag.dataset.y);
@@ -135,8 +132,8 @@ class TagsMixer {
   }
 }
 
-class Congratulations {
-  static firstHappy() {
+export class Congratulations {
+  static appearanceLetters() {
     anime(
       {
         targets: '.letter',
@@ -150,10 +147,10 @@ class Congratulations {
         translateX: [-2300, 0],
       }
     );
-    setTimeout(() => this.secondHappy(), 5000);
+    setTimeout(() => this.jumpingLetters(), 5000);
   }
 
-  static secondHappy() {
+  static jumpingLetters() {
     let animation = anime.timeline({
       duration: 3000,
       easing: 'easeInOutSine',
@@ -190,10 +187,8 @@ class Congratulations {
   }
 }
 
-export {
-  MoveChecker,
-  TagsMixer,
-  Congratulations,
-  doMove,
-  victoryCoords,
+type getClickedTagDataReturnRecord = {
+  clickTag: HTMLElement,
+  clickTagXCoord: number,
+  clickTagYCoord: number,
 }

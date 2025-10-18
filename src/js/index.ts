@@ -1,82 +1,111 @@
-import { MoveChecker, TagsMixer, Congratulations, doMove, victoryCoords } from "./common.js";
+import { TagsMover, TagsMixer, Congratulations, victoryCoords } from "./common.js";
 
 
-const button: HTMLElement | null = document.querySelector('.button');
-const tags: HTMLElement[] = Array.from(document.querySelectorAll<HTMLElement>('.tag'));
-const gameField: HTMLElement | null = document.querySelector('.game-field');
-const gameTitle: HTMLElement | null = document.querySelector('.game-title');
-const congratulations: HTMLElement | null = document.querySelector('.congratulations');
+const startGameButtonHTMLElement: HTMLElement | null = document.querySelector('.button');
+const tagsHTMLElements: HTMLElement[] = Array.from(document.querySelectorAll<HTMLElement>('.tag'));
+const gameFieldHTMLElement: HTMLElement | null = document.querySelector('.game-field');
+const gameTitleHTMLElement: HTMLElement | null = document.querySelector('.game-title');
+const congratulationsHTMLElement: HTMLElement | null = document.querySelector('.congratulations');
 const tagSize = window.innerWidth >= 900 ? 100 : 75;
+const tagsMover = new TagsMover();
+let initialClickX = 0;
+let initialClickY = 0;
+let hasMoved = false;
 
-button?.addEventListener('click', handleButton);
-gameField?.classList.add(window.innerWidth >= 900 ? 'large-game-field' : 'small-game-field');
+gameFieldHTMLElement?.classList.add(window.innerWidth >= 900 ? 'large-game-field' : 'small-game-field');
+startGameButtonHTMLElement?.addEventListener('mousedown', () => handlerStartGameButton('mousedown', 'mousemove'));
+startGameButtonHTMLElement?.addEventListener(
+  'touchstart',
+  (e) => {
+    handlerStartGameButton('touchstart', 'touchmove');
+    e.preventDefault();
+  },
+  { passive: false },
+);
 
-
-for (let tag of tags) {
-  const class_name = `tag${tag.dataset.value}-${tagSize}`
-  // tag.classList.add(`tag${tag.dataset.value}-${tagSize}.png`)
-  tag.classList.add(class_name);
+// динамически задаём стили и расположение для каждой костяшки
+for (let tag of tagsHTMLElements) {
   tag.classList.add(`tag${tagSize}`);
-  if (tag.dataset.value) {
-    let [x, y] = victoryCoords[Number(tag.dataset.value) - 1]
-    tag.dataset.x = String(x)
-    tag.dataset.y = String(y)
-  }
+  tag.style.backgroundImage = `url(./img/tags-${tagSize}/tag${tag.dataset.value}-${tagSize}.png)`;
+  let [x, y] = victoryCoords[Number(tag.dataset.value) - 1];
+  tag.dataset.x = String(x);
+  tag.dataset.y = String(y);
+  tag.style.left = `${x}px`;
+  tag.style.top = `${y}px`;
 }
 
-
-/** Функция получает массив элементов костяшек и возвращает список координат костяшек */
-function getTagsCoords(array: HTMLElement[]) {
-  const output = [];
-  for (let i of array) {
-      output.push([Number(i.dataset.x), Number(i.dataset.y)]);
-  }
-  return output;
+// обработчик косания костяшки мышью или пальцем (стилусом)
+function mouseOrTouchClickHandler(event: MouseEvent | TouchEvent): void {
+  initialClickX = (event instanceof MouseEvent) ? event.clientX : event.touches[0].clientX;
+  initialClickY = (event instanceof MouseEvent) ? event.clientY : event.touches[0].clientY;
+  hasMoved = false;
 }
 
-/* Функция сравнивает текущие координаты костяшек с выигрышной комбинацией и возвращает true/false */
-function checkVictory(): boolean {
-  const tagsCoords = getTagsCoords(Array.from(document.querySelectorAll('.tag')));
-  return JSON.stringify(tagsCoords) == JSON.stringify(victoryCoords);
-}
+// обработчик передвижения мыши или пальца (стилуса)
+function mouseOrTouchMoveHandler(event: MouseEvent | TouchEvent): void {
+  if (hasMoved) return;
+  
+  const diffX = initialClickX - Number((event instanceof MouseEvent) ? event.clientX : event.touches[0].clientX);
+  const diffY = initialClickY - Number((event instanceof MouseEvent) ? event.clientY : event.touches[0].clientY);
+  let direction: Direction;
 
-/* Функция отрабатывает при нажатии на костяшку и пытается сделать ход выбранной костяшки в свободный слот */
-function handleMove(event: Event): null | void {
-  // const tags: HTMLElement[] = Array.from(document.querySelectorAll('.tag'));    // получаем элементы всех костяшек document
-  const tagsCoords: number[][] = getTagsCoords(tags);   // получаем координаты всех костяшек
-  const clickTag = event.target as HTMLElement;         // получаем элемент нажатой костяшки
-
-  if (!(clickTag instanceof HTMLElement) || !clickTag.dataset) {
-    return
-  };
-  let [_, clickTagX, clickTagY] = Object.values(clickTag?.dataset);
-
-  // пытаемся у выбранной костяшки сделать ходы на 4 стороны
-  for (let step of MoveChecker.getAllMoveCheckers()) {
-    const availableCoordsDelts: [number, number] | undefined = step(tagsCoords, Number(clickTagX), Number(clickTagY));
-    if (availableCoordsDelts) {
-      doMove(clickTag, ...availableCoordsDelts);
-      if (checkVictory()) {
-        tags.forEach(t => t.removeEventListener('click', handleMove));
-        gameTitle?.classList.add('hide');
-        congratulations?.classList.remove('hide');
-        if (button) button.innerText = 'Старт игры';
-        Congratulations.firstHappy();
-      }
-      break;
+  if (Math.abs(diffX) >= 4 || Math.abs(diffY) >= 4) {
+    hasMoved = true;
+    if (Math.abs(diffX) < Math.abs(diffY)) {
+      direction = diffY > 0 ? 'tryMoveTagUp' : 'tryMoveTagDown';
+    } else {
+      direction = diffX > 0 ? 'tryMoveTagLeft' : 'tryMoveTagRight';
     }
+    tagsMover[direction](event);
+    checkVictory();
   }
 }
 
-/* Функция отрабатывает при нажатии на кнопку <<Старт игры>> и перемешивает костяшки */
-function handleButton(event: Event) {
-  tags.forEach(t => t.addEventListener('click', handleMove));
-  if (button) button.innerText = 'Перемешать';
-  if (!congratulations?.classList.contains('hide')) {
-      congratulations?.classList.add('hide');
-  }
-  if (gameTitle?.classList.contains('hide')) {
-      gameTitle.classList.remove('hide');
-  }
+/* Функция обработчик нажатия кнопки <<Старт игры>> */
+function handlerStartGameButton(clickEventType: 'mousedown' | 'touchstart', moveEventType: 'mousemove' | 'touchmove') {
+  tagsHTMLElements.forEach(tag => {
+    tag.addEventListener(`${clickEventType}`, mouseOrTouchClickHandler);
+    tag.addEventListener(`${moveEventType}`, mouseOrTouchMoveHandler);
+  });
+  changeHTMLElementInnerText(startGameButtonHTMLElement, 'Перемешать');
+  returnInitialGameTitle();
   TagsMixer.doMix();
 }
+
+// функция возвращает начальное изображение заголовка игры
+function returnInitialGameTitle() {
+  if (!congratulationsHTMLElement?.classList.contains('hide')) {
+      congratulationsHTMLElement?.classList.add('hide');
+  }
+  if (gameTitleHTMLElement?.classList.contains('hide')) {
+      gameTitleHTMLElement.classList.remove('hide');
+  }
+}
+
+function changeHTMLElementInnerText(htmlElement: HTMLElement | null, innerText: string) {
+  if (htmlElement) htmlElement.innerText = innerText;
+}
+
+/* Функция сравнивает текущие координаты костяшек с выигрышной комбинацией, 
+   если они равны - запускает поздравления */
+function checkVictory(): void {
+  const array: HTMLElement[] = Array.from(document.querySelectorAll('.tag'));
+  const tagsCoordsArray: [number, number][] = array.map(tag => [Number(tag.dataset.x), Number(tag.dataset.y)]);
+
+  if (JSON.stringify(tagsCoordsArray) == JSON.stringify(victoryCoords)) {
+    congratulationsOnVictory();
+  }
+}
+
+/* функция прячет начальное изображение заголовка игры,
+   изменяет содержимое кнопки startGameButtonHTMLElement,
+   запускает анимированное поздравление */
+function congratulationsOnVictory() {
+  gameTitleHTMLElement?.classList.add('hide');
+  congratulationsHTMLElement?.classList.remove('hide');
+  changeHTMLElementInnerText(startGameButtonHTMLElement, 'Старт игры');
+  Congratulations.appearanceLetters();
+}
+
+
+type Direction = 'tryMoveTagUp' | 'tryMoveTagDown' | 'tryMoveTagLeft' | 'tryMoveTagRight';
