@@ -1,4 +1,4 @@
-import { TagsMover, TagsMixer, Congratulations, victoryCoords } from "./common.js";
+import { TagsMover, TagsMixer, Congratulations, victoryCoords } from "./service.js";
 
 
 const startGameButtonHTMLElement: HTMLElement | null = document.querySelector('.button');
