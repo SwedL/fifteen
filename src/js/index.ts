@@ -104,7 +104,18 @@ function congratulationsOnVictory() {
   gameTitleHTMLElement?.classList.add('hide');
   congratulationsHTMLElement?.classList.remove('hide');
   changeHTMLElementInnerText(startGameButtonHTMLElement, 'Старт игры');
+  removeTagListener();
   Congratulations.appearanceLetters();
+}
+
+/* Функция снимает прослушивателей нажатия костяшек */
+function removeTagListener() {
+  tagsHTMLElements.forEach(tag => {
+    tag.removeEventListener('mousemove', mouseOrTouchMoveHandler);
+    tag.removeEventListener('touchmove', mouseOrTouchMoveHandler);
+    tag.removeEventListener('mousedown', mouseOrTouchClickHandler);
+    tag.removeEventListener('touchstart', mouseOrTouchClickHandler);
+  });
 }
 
 

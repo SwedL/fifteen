@@ -14,6 +14,11 @@ const smallVictoryCoords = [
   [20, 245], [95, 245], [170, 245]
 ];
 
+/* координаты дырки на поле */
+const hole: Record<string, number> = {
+    XCoord: window.innerWidth >= 900 ? 325 : 245,
+    YCoord: window.innerWidth >= 900 ? 325 : 245,
+  }
 export const victoryCoords = window.innerWidth >= 900 ? largeVictoryCoords : smallVictoryCoords;
 const tagStep = window.innerWidth >= 900 ? 100 : 75;
 
@@ -48,40 +53,34 @@ function getClickedTagData(event: MouseEvent | TouchEvent): getClickedTagDataRet
 
 
 export class TagsMover {
-  /* координаты дырки на поле */
-  hole: Record<string, number> = {
-    XCoord: window.innerWidth >= 900 ? 325 : 245,
-    YCoord: window.innerWidth >= 900 ? 325 : 245,
-  }
-
   tryMoveTagUp(event: MouseEvent | TouchEvent): void {
     const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
-    if (clickTagXCoord === this.hole.XCoord && clickTagYCoord - tagStep === this.hole.YCoord) {
-      this.hole.YCoord = clickTagYCoord;
+    if (clickTagXCoord === hole.XCoord && clickTagYCoord - tagStep === hole.YCoord) {
+      hole.YCoord = clickTagYCoord;
       doMove(clickTag, 0, -tagStep);
     }
   }
 
   tryMoveTagDown(event: MouseEvent | TouchEvent): void {
     const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
-    if (clickTagXCoord === this.hole.XCoord && clickTagYCoord + tagStep === this.hole.YCoord) {
-      this.hole.YCoord = clickTagYCoord;
+    if (clickTagXCoord === hole.XCoord && clickTagYCoord + tagStep === hole.YCoord) {
+      hole.YCoord = clickTagYCoord;
       doMove(clickTag, 0, tagStep);
     }
   }
 
   tryMoveTagLeft(event: MouseEvent | TouchEvent): void {
     const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
-    if (clickTagXCoord - tagStep === this.hole.XCoord && clickTagYCoord === this.hole.YCoord) {
-      this.hole.XCoord = clickTagXCoord;
+    if (clickTagXCoord - tagStep === hole.XCoord && clickTagYCoord === hole.YCoord) {
+      hole.XCoord = clickTagXCoord;
       doMove(clickTag, -tagStep, 0);
     }
   }
 
   tryMoveTagRight(event: MouseEvent | TouchEvent): void {
     const { clickTag, clickTagXCoord, clickTagYCoord } = getClickedTagData(event);
-    if (clickTagXCoord + tagStep === this.hole.XCoord && clickTagYCoord === this.hole.YCoord) {
-      this.hole.XCoord = clickTagXCoord;
+    if (clickTagXCoord + tagStep === hole.XCoord && clickTagYCoord === hole.YCoord) {
+      hole.XCoord = clickTagXCoord;
       doMove(clickTag, tagStep, 0);
     }
   }
@@ -90,6 +89,9 @@ export class TagsMover {
 export class TagsMixer {
   /** Функция правильно перемешивает костяшки */
   static shuffleArray(): number[] {
+    hole.XCoord = window.innerWidth >= 900 ? 325 : 245;
+    hole.YCoord = window.innerWidth >= 900 ? 325 : 245;
+
     while (true) {
       let array = Array.from({ length: 15 }, (_, i) => i + 1);
       let checkSum = 0;
